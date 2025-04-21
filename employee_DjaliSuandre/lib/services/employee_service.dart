@@ -8,12 +8,11 @@ class EmployeeService {
     return _database.onValue.map((event) {
       final Map<String, String> items = {};
       DataSnapshot snapshot = event.snapshot;
-      if (snapshot.exists) {
-        final Map<dynamic, dynamic> data =
-            snapshot.value as Map<dynamic, dynamic>;
-        data.forEach((key, value) {
-          items[key] = value['name'];
-          items[key] = value['position'];
+      if (snapshot.value != null) {
+        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+        values.forEach((key, value) {
+          items[key] = value['name'] as String;
+          items[key] = value['position'] as String;
         });
       }
       return items;
